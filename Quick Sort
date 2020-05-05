@@ -1,0 +1,77 @@
+#include <iostream>
+
+using namespace std;
+
+int swap(int *x,int *y)
+{
+    int temp=*x;
+    *x=*y;
+    *y=temp;
+
+    return 0;
+}
+
+int partition(int A[],int l,int h )
+{
+    int pivot=A[l];
+    int i=l+1;
+    int j=h;
+
+
+   while(i<j)
+    {
+
+    while(pivot>=A[i])
+    {
+        i++;
+
+    }
+
+    while(pivot<A[j])
+    {
+
+        j--;
+
+    }
+
+    if(i<j)
+    {
+        swap(&A[i],&A[j]);
+    }
+
+    }
+    swap(&A[l],&A[j]);
+return j;
+
+}
+
+ void QuickSort(int A[],int l,int h)
+   {
+       int j=0;
+         if(l<h)    {
+        j=partition(A,l,h);
+        cout<<j;
+          QuickSort(A,l,j-1);
+             QuickSort(A,j+1,h);
+               }
+
+   }
+
+
+int main()
+{
+   int a[]={50,30,60,90,60,80,10,20,70};
+  int n = sizeof(a)/sizeof(a[0]);
+
+ QuickSort(a,0,8);
+
+
+
+   for(int i=0;i<9;i++)
+   {
+
+       cout<<a[i]<<" ";
+   }
+
+    return 0;
+}

@@ -1,0 +1,117 @@
+#include<iostream>
+#include<stdio.h>
+
+using namespace std;
+
+class Node{
+public:
+int data;
+ Node *next;
+};
+
+class hashing
+{
+private:
+    Node *H[10];
+
+public:
+    hashing()
+    {
+    for(int i=0;i<10;i++)
+    {
+        H[i]=NULL;
+    }
+    }
+
+  void search();
+  int hash(int x);
+
+  int insert(int x);
+  void display();
+void sortedInsert(int index,int x);
+};
+
+int hashing:: hash(int x)
+{
+  return(x%10);
+
+}
+
+void hashing:: sortedInsert(int index,int x)
+{
+    Node *p,*q,*t;
+
+    t=new Node;
+    t->data=x;
+    t->next=NULL;
+    q=NULL;
+    p=H[index];
+
+    if(p==NULL)
+    {
+      H[index]=t;
+
+    }
+    else
+    {
+        while(p && p->data<x)
+        {
+            q=p;
+            p=p->next;
+        }
+        if(q==NULL)
+        {
+          t->next=q->next;
+q->next=t;
+        }
+
+        else
+        {
+           t->next=H[index];
+             H[index]=t;
+        }
+
+
+    }
+
+
+
+
+}
+
+int hashing:: insert(int x)
+{
+  int index=hash(x);
+  sortedInsert(index,x);
+
+
+}
+
+void hashing::display()
+{
+Node *p;
+int i;
+for(i=0; i<10;i++)
+{
+p=H[i];
+while(p)
+{
+cout<<p->data<<" ";
+p=p->next;
+}
+cout<<endl;
+}
+}
+
+
+
+int main ()
+{
+hashing t;
+t.insert(10);//Only 1 parameter required that is the number to be inserted.
+t.insert(13);//Only 1 parameter required that is the number to be inserted.
+t.insert(20);//Only 1 parameter required that is the number to be inserted.
+t.insert(34);//Only 1 parameter required that is the number to be inserted.
+t.display();
+return 0;
+}
